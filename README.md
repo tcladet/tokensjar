@@ -79,8 +79,24 @@ jar.interpret('$(T1)')
 
  ## Tests
 
- Tests are written following `unittest` framework. If you want to run tests, enter the following command at the root level of the package:
+ Tests are written following `unittest` framework. Some dependencies are needed (`test-requirements.txt`). If you want to run tests, enter the following command at the root level of the package:
 
  ```
  python -m unittest discover
  ``` 
+
+ ## Build the project
+
+To perform the build, you need to install `dist-requirements.txt` list of packages, then run the following command. All the files will be located in `dist` directory.
+
+```
+python -m build
+```
+
+## Upload the project
+
+The project can be uploaded using `twine` (listed in `dist-requirements.txt`) by running the following command:
+
+```
+python -m twine upload dist/*
+```
