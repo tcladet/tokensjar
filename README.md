@@ -2,6 +2,14 @@
 
 `tokensjar` is a pure Python module dedicated to generate, manipulate and interpret expressions following environment variables creation rules. This module is really useful if you need to develop a tool that can prepare the session environment variables for a specific usage.
 
+## Installation
+
+`tokensjar` is available on [PyPi](https://pypi.org/project/tokensjar)
+
+```
+python -m pip install tokensjar
+```
+
 ## Concept
 
 A **token** as to be considered as a simple variable where we can attach one value (a `raw` value) or multiple values (`append` or `prepend`). The main goal is to manipulate tokens with the same strategies than environment variables. 
