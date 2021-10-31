@@ -12,7 +12,7 @@ python -m pip install tokensjar
 
 ## Concept
 
-A **token** as to be considered as a simple variable where we can attach one value (a `raw` value) or multiple values (`append` or `prepend`). The main goal is to manipulate tokens with the same strategies than environment variables. 
+A **token** must be considered as a simple variable where we can attach one value (a `raw` value) or multiple values (`append` or `prepend`). The main goal is to manipulate tokens with the same strategies than environment variables. 
 
 ## Examples
 
