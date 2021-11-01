@@ -2,8 +2,6 @@ import os
 import re
 from collections import defaultdict
 
-from toposort import toposort
-
 
 RX_TOKEN_PATTERN = re.compile(r'\$\(([^\)]+)\)')
 
