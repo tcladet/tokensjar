@@ -16,4 +16,6 @@ python_version = "3.11"
 [scripts]
 test = "python -m unittest -v"
 dist = "python -m build"
+testpublish = "twine upload --repository testpypi dist/*"
+publish = "twine upload dist/*"
 code = "code ."
