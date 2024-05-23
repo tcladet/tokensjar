@@ -16,6 +16,11 @@ class TokensJarBadInitTokensError(TokensJarError):
         super().__init__('"init_tokens" argument must be a dictionary.')
 
 
+class TokensJarTokenNotDeclaredError(TokensJarError):
+    def __init__(self, token: str):
+        super().__init__(f'Token "{token}" is not declared in the tokens jar.')
+
+
 class TokensJar:
     def __init__(self, init_tokens: dict={}):
         if not isinstance(init_tokens, dict):
@@ -81,7 +86,7 @@ class TokensJar:
             tokens[t] = os.pathsep.join(value)
         return tokens
 
-    def interpret(self, expression: str) -> str:
+    def interpret(self, expression: str, strict: bool = True) -> str:
         """Interpret the expression given in parameter."""
         tokens = self.__get_tokens()
         
@@ -95,7 +100,10 @@ class TokensJar:
         sorter = TopologicalSorter(nodes)
         tokens_sorted = list(reversed(list(sorter.static_order())))
         for ts in tokens_sorted:
-            expression = expression.replace(f'$({ts})', tokens[ts])
+            if ts in tokens:
+                expression = expression.replace(f'$({ts})', tokens[ts])
+            elif strict:
+                raise TokensJarTokenNotDeclaredError(ts)
         return expression
 
     @property

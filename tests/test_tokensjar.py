@@ -1,7 +1,7 @@
 import unittest
 import os
 from ddt import ddt, data, unpack
-from src.tokensjar.tokensjar import TokensJar, TokensJarBadInitTokensError
+from src.tokensjar.tokensjar import TokensJar, TokensJarBadInitTokensError, TokensJarTokenNotDeclaredError
 
 
 @ddt
@@ -97,3 +97,15 @@ class TestMisusageTestCase(unittest.TestCase):
     def test_bad_init_tokens(self):
         with self.assertRaises(TokensJarBadInitTokensError):
             TokensJar(init_tokens="pouet")
+
+    def test_token_not_declared_strict(self):
+        jar = TokensJar()
+        jar.add_raw_value('X', '$(TOKEN)_coucou')
+        with self.assertRaises(TokensJarTokenNotDeclaredError):
+            jar.interpret('$(X)')
+
+    def test_token_not_declared_relaxed(self):
+        jar = TokensJar()
+        jar.add_raw_value('X', '$(TOKEN)_coucou')
+        challenge = jar.interpret('$(X)', strict=False)
+        self.assertEqual('$(TOKEN)_coucou', challenge)
