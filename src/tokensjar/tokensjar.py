@@ -1,6 +1,7 @@
 import os
 import re
 from collections import defaultdict
+from graphlib import TopologicalSorter
 
 
 RX_TOKEN_PATTERN = re.compile(r'\$\(([^\)]+)\)')
@@ -91,14 +92,14 @@ class TokensJar:
             for token in dep_tokens:
                 nodes[t].add(token)
         # Sort nodes
-        from toposort import toposort_flatten
-        tokens_sorted = reversed(toposort_flatten(nodes))
+        sorter = TopologicalSorter(nodes)
+        tokens_sorted = list(reversed(list(sorter.static_order())))
         for ts in tokens_sorted:
             expression = expression.replace(f'$({ts})', tokens[ts])
         return expression
 
     @property
-    def tokens_interpreted(self) -> dict:
+    def tokens_interpreted(self) -> dict[str, str]:
         """The dictionary of all tokens interpreted."""
         tokens = self.__get_tokens()
         for t, value in tokens.items():

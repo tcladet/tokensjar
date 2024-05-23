@@ -67,7 +67,7 @@ result = jar.interpret('Joe said: $(HELLO) $(T12)')
 # Output: Joe said: Hello: Token1/Token2
 ```
 
- Take care to not introduce cyclic dependencies between tokens! The topological sort is handled by Eric V. Smith `toposort` Python package ([Link](https://pypi.org/project/toposort)).
+> :warning: Take care to not introduce cyclic dependencies between tokens!
 
  ```python
 from tokensjar import TokensJar

@@ -1,1 +1,1 @@
-from .tokensjar import *
+from .tokensjar import * # noqa
